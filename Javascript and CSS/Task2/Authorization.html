@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel="stylesheet" href="Task2.css" type="text/css"/>
+    <script>
+        window.onload = function () {
+            let alert = document.getElementById("warning");
+            alert.innerHTML = "Вы не заполнили поля логин и пароль";
+            document.body.append(alert);
+            alert.style.display = "none";
+            document.getElementById("enter").onclick = login;
+
+            function login() {
+                let loginUser = document.getElementById("login").value;
+                let passwordUser = document.getElementById("password").value;
+                if (loginUser === "" && passwordUser === "") {
+                    document.getElementById("login").className = "warningColor";
+                    document.getElementById("password").className = "warningColor";
+                    alert.style.display = "block";
+                }
+                if (loginUser === "" && passwordUser !== "") {
+                    document.getElementById("login").className = "warningColor";
+                    document.getElementById("password").className = "standartColor";
+                    alert.style.display = "block";
+                }
+                if (loginUser !== "" && passwordUser === "") {
+                    document.getElementById("login").className = "standartColor";
+                    document.getElementById("password").className = "warningColor";
+                    alert.style.display = "block";
+                }
+                if (loginUser !== "" && passwordUser !== "") {
+                    alert.style.display = "none";
+                    document.getElementById("login").className = "successColor";
+                    document.getElementById("password").className = "successColor";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="signIn">
+    <form>
+        <p class="mainText" id="userName"> Имя пользователя </p>
+        <p class="mainText" id="userPassword"> Пароль </p>
+        <input class="standartColor" type="textbox" id="login" placeholder="Введите логин"/>
+        <input class="standartColor" type="password" id="password" placeholder="Введите пароль"/>
+        <input class="mainText" type="button" id="enter" value="Вход"/>
+        <p class="mainText" id="rememberAccountParagraph">Запомнить меня</p>
+        <input type="checkbox" id="rememberAccount"/>
+    </form>
+    <p class="mainText" id="warning"></p>
+</div>
+</body>
+</html>

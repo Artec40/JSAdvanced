@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GuessTheMeaning</title>
+    <script>
+        window.onload = function () {
+            let div = document.getElementById("answer");
+            let number = Math.floor(Math.random() * 100);
+
+            document.getElementById("startButton").onclick = startButtonHandler;
+
+            function startButtonHandler() {
+                const userInput = parseFloat(document.getElementById("textBox").value);
+                if (userInput === number) {
+                    div.style.background = "green";
+                    document.getElementById("answer").innerText = "Вы угадали число!";
+                }
+                if ((userInput - number) > 0) {
+                    div.style.background = "red";
+                    document.getElementById("answer").innerText = "Загаданное число меньше введеного вами";
+                }
+                if ((userInput - number) < 0) {
+                    div.style.background = "red";
+                    document.getElementById("answer").innerText = "Загаданное число больше введеного вами";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="textBox" placeholder="Введите значение"/>
+<input type="button" id="startButton" value="Отгадать число"/>
+<div style="width: 200px; text-align: center; padding: 50px" id="answer"></div>
+</body>
+</html>
