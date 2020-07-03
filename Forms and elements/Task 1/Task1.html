@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Delivery</title>
+</head>
+<script>
+    window.addEventListener("load", function () {
+            let elementsInForm = document.forms[0].elements;
+            let cost = 0;
+
+            let uncheckAllCheckBox = function () {
+                for (let i = 0; i < elementsInForm.length; i++) {
+                    if (elementsInForm[i].type === "checkbox") {
+                        elementsInForm[i].checked = false;
+                    }
+                }
+            };
+
+            let addCostToCheckBox = function (checkboxAvailable, price) {
+                if (checkboxAvailable.target.checked == true) {
+                    cost += price;
+                }
+                else {
+                    cost -= price;
+                }
+            };
+
+            for (let i = 0; i < elementsInForm.length; i++) {
+
+                if (elementsInForm[i].name === "pizzaType") {
+                    elementsInForm[i].addEventListener("change", function (e) {
+                        uncheckAllCheckBox();
+                        if (e.target.id === "small") {
+                            cost = 60;
+                        }
+                        else if (e.target.id === "medium") {
+                            cost = 80;
+                        }
+                        else if (e.target.id === "large") {
+                            cost = 100;
+                        }
+                        document.getElementById("cost").innerHTML = 'Стоимость = ' + cost;
+                    });
+                }
+
+                if (elementsInForm[i].type === "checkbox") {
+                    elementsInForm[i].addEventListener("change", function (e) {
+                        if (e.target.id === "mushroom") {
+                            addCostToCheckBox(e, 10);
+                        }
+                        else if (e.target.id === "bacon") {
+                            addCostToCheckBox(e, 15);
+                        }
+                        else if (e.target.id === "pomadoro") {
+                            addCostToCheckBox(e, 5);
+                        }
+                        else if (e.target.id === "cheese") {
+                            addCostToCheckBox(e, 5);
+                        }
+                        else if (e.target.id === "olives") {
+                            addCostToCheckBox(e, 10);
+                        }
+                        document.getElementById("cost").innerHTML = 'Стоимость = ' + cost;
+                    })
+                }
+            }
+        }
+    )
+</script>
+<body>
+<form>
+    small<input name="pizzaType" id="small" type="radio" required="required">
+    medium<input name="pizzaType" id="medium" type="radio" required="required">
+    large<input name="pizzaType" id="large" type="radio" required="required">
+    <br>
+    грибы<input id="mushroom" type="checkbox">
+    бекон<input id="bacon" type="checkbox">
+    помидоры<input id="pomadoro" type="checkbox">
+    сыр<input id="cheese" type="checkbox">
+    оливки<input id="olives" type="checkbox">
+    <input id="name" type="text" placeholder="Имя покупателя" required="required">
+    <input id="phone" type="text" placeholder="Номер телефона" required="required">
+    <input id="email" type="text" placeholder="Почта" required="required">
+    <input id="submit" type="submit" value="Сделать заказ"><br>
+    <p id="cost">Стоимость не определена</p>
+</form>
+</body>
+</html>
