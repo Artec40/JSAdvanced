@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Three buttons one picture</title>
+    <script>
+        window.addEventListener("load", function () {
+
+            function changePicture(pictureName) {
+                document.getElementById("picture").src = pictureName;
+            }
+            document.getElementById("firstPicture").addEventListener("click", () => changePicture("1.png"));
+            document.getElementById("secondPicture").addEventListener("click", () => changePicture("2.png"));
+            document.getElementById("thirdPicture").addEventListener("click", () => changePicture("3.png"));
+        })
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" id="firstPicture" value="Первая картинка">
+    <input type="button" id="secondPicture" value="Вторая картинка">
+    <input type="button" id="thirdPicture" value="Третья картинка">
+    <img id="picture" src="standart.png" align="left">
+</div>
+</body>
+</html>
