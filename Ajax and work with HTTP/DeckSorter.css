@@ -1,0 +1,153 @@
+#header {
+    position: absolute;
+    width: 147px;
+    height: 29px;
+    left: 419px;
+    top: 250px;
+    font-size: 30px;
+}
+
+form {
+    background: #14230C;
+    box-shadow: 8px -8px 1px rgba(106, 46, 13, 0.5);
+}
+
+.card {
+    position: absolute;
+    width: 80px;
+    display: none;
+}
+
+#imageCollection {
+    position: absolute;
+    width: 872px;
+    height: 650px;
+    left: 782px;
+    top: 83px;
+    background: none;
+    box-shadow: none;
+}
+
+input {
+    background: #6A2E0D;
+    border-radius: 24px;
+    font-size: 16px;
+    align-items: center;
+    text-align: center;
+    color: #D3C8B4;
+    outline: none;
+    border: none;
+}
+
+.textStyle {
+    background: #D3C8B4;
+    border: none;
+}
+
+::placeholder {
+    color: #6A2E0D;
+    text-align: center;
+}
+
+#output {
+    position: absolute;
+    width: 147px;
+    height: 29px;
+    left: 1140px;
+    top: 350px;
+    font-size: 30px;
+}
+
+#getDeck {
+    position: absolute;
+    width: 444px;
+    height: 57px;
+    left: 270px;
+    top: 349px;
+}
+
+#createDeck {
+    position: absolute;
+    width: 444px;
+    height: 159px;
+    left: 270px;
+    top: 428px;
+}
+
+#deckAction {
+    position: absolute;
+    width: 444px;
+    height: 135px;
+    left: 270px;
+    top: 609px;
+}
+
+#getAllDecks {
+    position: absolute;
+    width: 128px;
+    height: 31px;
+    left: 158px;
+    top: 13px;
+}
+
+#newDeckButton {
+    position: absolute;
+    width: 128px;
+    height: 31px;
+    left: 158px;
+    top: 95px;
+}
+
+#newDeckName {
+    position: absolute;
+    width: 214px;
+    height: 31px;
+    left: 41px;
+    top: 30px;
+    color: #6A2E0D;
+}
+
+#newDeckList {
+    position: absolute;
+    width: 54px;
+    height: 31px;
+    left: 299px;
+    top: 30px;
+    background: #6A2E0D;
+    border-radius: 24px;
+    color: #D3C8B4;
+    text-align: center;
+}
+
+#searchDeck {
+    position: absolute;
+    width: 159px;
+    height: 31px;
+    left: 24px;
+    top: 12px;
+}
+
+#fillDeck {
+    position: absolute;
+    width: 159px;
+    height: 31px;
+    left: 24px;
+    top: 52px;
+}
+
+#deleteDeck {
+    position: absolute;
+    width: 159px;
+    height: 31px;
+    left: 24px;
+    top: 92px;
+}
+
+#actionWithDeck {
+    position: absolute;
+    width: 214px;
+    height: 31px;
+    left: 205px;
+    top: 52px;
+    color: #6A2E0D;
+}
