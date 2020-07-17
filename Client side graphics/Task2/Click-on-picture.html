@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C'mon, click on picture!</title>
+    <script>
+        window.addEventListener("load", function () {
+            let objectImagesContainer = document.getElementById("container").children;
+            let imagesContainer = Array.from(objectImagesContainer);
+            let timer;
+            imagesContainer.forEach(
+                function changeSize(image) {
+                    image.addEventListener("click", function (e) {
+                        if (e.target.width === 75) {
+                            timer = setInterval(function () {
+                                e.target.width++;
+                                if (e.target.width === 300) {
+                                    clearInterval(timer);
+                                }
+                            }, 1);
+
+                        }
+                        if (e.target.width === 300) {
+                            timer = setInterval(function () {
+                                e.target.width--;
+                                if (e.target.width === 75) {
+                                    clearInterval(timer);
+                                }
+                            }, 1);
+
+                        }
+                    })
+                })
+        })
+    </script>
+</head>
+<body>
+<div id="container">
+    <img src="1.png" width="75">
+    <img src="2.png" width="75">
+    <img src="3.png" width="75">
+</div>
+</body>
+</html>
