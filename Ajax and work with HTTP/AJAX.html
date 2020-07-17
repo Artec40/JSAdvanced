@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AJAX</title>
+    <link href="DeckSorter.css" rel="stylesheet" type="text/css"/>
+    <script>
+        window.onload = function () {
+            let output = document.getElementById("output");
+            let timeout = 500;
+
+            // Функция, маскирующая изображения карт.
+            let hideAllCards = function () {
+                let images = document.getElementById("imageCollection").children;
+                for (let i = 0; i < images.length; i++) {
+                    images[i].style.display = "none";
+                }
+                //  images.forEach((image) => {
+                //      image.style.display = "none";
+                //  })
+            };
+
+            // GET SearchAll
+            document.getElementById("getAllDecks").onclick = function () {
+                hideAllCards();
+                let getDecks = new XMLHttpRequest();
+                let timer = setTimeout(function () {
+                    getDecks.abort();
+                    alert("aborted");
+                }, timeout);
+
+                getDecks.open("GET", "https://localhost:44360/api/values");
+                getDecks.onreadystatechange = function () {
+                    if (getDecks.readyState === 4 && getDecks.status === 200) {
+                        clearTimeout(timer);
+                        output.innerHTML = getDecks.responseText;
+                    }
+                };
+                getDecks.send();
+            };
+
+            // POST AddNew
+            document.getElementById("newDeckButton").onclick = function () {
+                hideAllCards();
+                let createDeck = new XMLHttpRequest();
+                let timer = setTimeout(function () {
+                    createDeck.abort();
+                    alert("Please, enter another deck name");
+                }, timeout);
+                let name = document.getElementById("newDeckName").value;
+                let quantity = Number(document.getElementById("newDeckList").value);
+
+                let json = JSON.stringify({
+                    Name: name,
+                    Quantity: quantity
+                });
+
+                createDeck.open("POST", "https://localhost:44360/api/values");
+                createDeck.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                createDeck.onreadystatechange = function () {
+                    if (createDeck.readyState === 4 && createDeck.status === 200) {
+                        clearTimeout(timer);
+                        output.innerHTML = "new deck created";
+                    }
+                };
+                createDeck.send(json);
+            };
+
+            // GET SearchDeckByName
+            document.getElementById("searchDeck").onclick = function () {
+                hideAllCards();
+                let searchDeck = new XMLHttpRequest();
+                let timer = setTimeout(function () {
+                    searchDeck.abort();
+                    alert("Please, enter another deck name");
+                }, timeout);
+
+                let deckName = document.getElementById("actionWithDeck").value;
+                searchDeck.open("GET", "https://localhost:44360/api/values/getDeck?deckName=" + deckName);
+                searchDeck.onreadystatechange = function () {
+                    if (searchDeck.readyState === 4 && searchDeck.status === 200) {
+                        clearTimeout(timer);
+
+                        //Извлечение массива карт из полученных данных.
+                        let response = searchDeck.responseText;
+                        let startSlice = Number(deckName.length) + 33;
+                        let endSlice = Number(response.length) - 4;
+                        let cardsInDeck = response.slice(startSlice, endSlice);
+                        let arrayOfCards = cardsInDeck.split('"},{"cardName":"');
+
+                        //Данные о расположении карт для корректной работы при перемешивании колоды.
+                        let firstCardPositionHorison = 150;
+                        let nextCardPositionHorison = firstCardPositionHorison;
+                        let cardPositionVertical = 0;
+                        let cardPositionNumber = 0;
+
+                        arrayOfCards.forEach((cards) => {
+                            //Переход на новую строку после 10 карт.
+                            if ((cardPositionNumber % 10 === 0) && (cardPositionNumber != 0)) {
+                                cardPositionVertical += 127;
+                                nextCardPositionHorison = firstCardPositionHorison - 85;
+                            }
+                            //Позиция для первой карты.
+                            if (cards === arrayOfCards[0]) {
+                                document.getElementById(cards).style.left = String(firstCardPositionHorison) + 'px';
+                                document.getElementById(cards).style.top = String(cardPositionVertical) + 'px';
+                            }
+                            //Позиция для всех карт, кроме первой.
+                            else {
+                                nextCardPositionHorison += 85;
+                                document.getElementById(cards).style.left = String(nextCardPositionHorison) + 'px';
+                                document.getElementById(cards).style.top = String(cardPositionVertical) + 'px';
+                            }
+                            document.getElementById(cards).style.display = "inline";
+                            cardPositionNumber++;
+                        });
+                        output.innerHTML = " ";
+                    }
+                };
+                searchDeck.send();
+            };
+
+            //PUT FillDeck
+            document.getElementById("fillDeck").onclick = function () {
+                hideAllCards();
+                let fillDeck = new XMLHttpRequest();
+                let timer = setTimeout(function () {
+                    fillDeck.abort();
+                    alert("Please, enter another deck name");
+                }, timeout);
+                let deckName = document.getElementById("actionWithDeck").value;
+                fillDeck.open("PUT", "https://localhost:44360/api/values/fill" + deckName + "?deckName=" + deckName);
+                fillDeck.onreadystatechange = function () {
+                    if (fillDeck.readyState === 4 && fillDeck.status === 200) {
+                        clearTimeout(timer);
+                        output.innerHTML = "deck filled";
+                    }
+                };
+                fillDeck.send();
+            };
+
+            //DELETE Deck
+            document.getElementById("deleteDeck").onclick = function () {
+                hideAllCards();
+                let deleteDeck = new XMLHttpRequest();
+                let timer = setTimeout(function () {
+                    deleteDeck.abort();
+                    alert("Please, enter another deck name");
+                }, timeout);
+                let deckName = document.getElementById("actionWithDeck").value;
+                deleteDeck.open("DELETE", "https://localhost:44360/api/values/delete" + deckName + "?=" + deckName);
+                deleteDeck.onreadystatechange = function () {
+                    if (deleteDeck.readyState === 4 && deleteDeck.status === 204) {
+                        clearTimeout(timer);
+                        output.innerHTML = "deck deleted"
+                    }
+                };
+                deleteDeck.send();
+            }
+        };
+    </script>
+</head>
+<body>
+<p id="header">DeckSorter!</p>
+
+<form id="getDeck">
+    <input id="getAllDecks" type="button" value="Get decks"/>
+</form>
+
+<form id="createDeck">
+    <input id="newDeckButton" type="button" value="Add new deck"/>
+    <input id="newDeckName" type="text" placeholder="Deck name" class="textStyle">
+    <select id="newDeckList">
+        <option>24</option>
+        <option>36</option>
+        <option>52</option>
+    </select>
+    </ul>
+</form>
+
+<form id="deckAction">
+    <input id="searchDeck" type="button" value="Search deck"/>
+    <input id="fillDeck" type="button" value="Fill deck"/>
+    <input id="deleteDeck" type="button" value="Delete deck"/>
+    <input id="actionWithDeck" type="text" placeholder="Deck name" class="textStyle">
+</form>
+
+<div id="imageCollection">
+    <img src="cards/ace%20clubs.png" id="ace clubs" class="card">
+    <img src="cards/ace%20diamonds.png" id="ace diamonds" class="card">
+    <img src="cards/ace%20hearts.png" id="ace hearts" class="card">
+    <img src="cards/ace%20spades.png" id="ace spades" class="card">
+    <img src="cards/eight%20clubs.png" id="eight clubs" class="card">
+    <img src="cards/eight%20diamonds.png" id="eight diamonds" class="card">
+    <img src="cards/eight%20hearts.png" id="eight hearts" class="card">
+    <img src="cards/eight%20spades.png" id="eight spades" class="card">
+    <img src="cards/five%20clubs.png" id="five clubs" class="card">
+    <img src="cards/five%20diamonds.png" id="five diamonds" class="card">
+    <img src="cards/five%20hearts.png" id="five hearts" class="card">
+    <img src="cards/five%20spades.png" id="five spades" class="card">
+    <img src="cards/four%20clubs.png" id="four clubs" class="card">
+    <img src="cards/four%20diamonds.png" id="four diamonds" class="card">
+    <img src="cards/four%20hearts.png" id="four hearts" class="card">
+    <img src="cards/four%20spades.png" id="four spades" class="card">
+    <img src="cards/jack%20clubs.png" id="jack clubs" class="card">
+    <img src="cards/jack%20diamonds.png" id="jack diamonds" class="card">
+    <img src="cards/jack%20hearts.png" id="jack hearts" class="card">
+    <img src="cards/jack%20spades.png" id="jack spades" class="card">
+    <img src="cards/king%20clubs.png" id="king clubs" class="card">
+    <img src="cards/king%20diamonds.png" id="king diamonds" class="card">
+    <img src="cards/king%20hearts.png" id="king hearts" class="card">
+    <img src="cards/king%20spades.png" id="king spades" class="card">
+    <img src="cards/nine%20clubs.png" id="nine clubs" class="card">
+    <img src="cards/nine%20diamonds.png" id="nine diamonds" class="card">
+    <img src="cards/nine%20hearts.png" id="nine hearts" class="card">
+    <img src="cards/nine%20spades.png" id="nine spades" class="card">
+    <img src="cards/queen%20clubs.png" id="queen clubs" class="card">
+    <img src="cards/queen%20diamonds.png" id="queen diamonds" class="card">
+    <img src="cards/queen%20hearts.png" id="queen hearts" class="card">
+    <img src="cards/queen%20spades.png" id="queen spades" class="card">
+    <img src="cards/seven%20clubs.png" id="seven clubs" class="card">
+    <img src="cards/seven%20diamonds.png" id="seven diamonds" class="card">
+    <img src="cards/seven%20hearts.png" id="seven hearts" class="card">
+    <img src="cards/seven%20spades.png" id="seven spades" class="card">
+    <img src="cards/six%20clubs.png" id="six clubs" class="card">
+    <img src="cards/six%20diamonds.png" id="six diamonds" class="card">
+    <img src="cards/six%20hearts.png" id="six hearts" class="card">
+    <img src="cards/six%20spades.png" id="six spades" class="card">
+    <img src="cards/ten%20clubs.png" id="ten clubs" class="card">
+    <img src="cards/ten%20diamonds.png" id="ten diamonds" class="card">
+    <img src="cards/ten%20hearts.png" id="ten hearts" class="card">
+    <img src="cards/ten%20spades.png" id="ten spades" class="card">
+    <img src="cards/three%20clubs.png" id="three clubs" class="card">
+    <img src="cards/three%20diamonds.png" id="three diamonds" class="card">
+    <img src="cards/three%20hearts.png" id="three hearts" class="card">
+    <img src="cards/three%20spades.png" id="three spades" class="card">
+    <img src="cards/two%20clubs.png" id="two clubs" class="card">
+    <img src="cards/two%20diamonds.png" id="two diamonds" class="card">
+    <img src="cards/two%20hearts.png" id="two hearts" class="card">
+    <img src="cards/two%20spades.png" id="two spades" class="card">
+</div>
+
+<p id="output"></p>
+</body>
+</html>
