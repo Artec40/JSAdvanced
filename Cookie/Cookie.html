@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie</title>
+    <script>
+        window.addEventListener("load", function () {
+
+            function getCookie(cookieName) {
+                let results = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+                if (results)
+                    return (unescape(results[2]));
+                else
+                    return null;
+            }
+
+            document.body.style.fontSize = getCookie("fontSize")+"px";
+            document.body.style.backgroundColor = getCookie("color");
+
+            let userValue = document.getElementById("select");
+            let textSize = document.getElementById("textSize");
+            let saveButton = document.getElementById("save");
+            saveButton.addEventListener("click", function () {
+                document.body.style.backgroundColor = userValue.value;
+                document.body.style.fontSize = textSize.value;
+                let fontSize = "fontSize" + "=" + textSize.value + ";" + "max-age=20000";
+                document.cookie = fontSize;
+                let color = "color" + "=" + userValue.value + ";" + "max-age=20000";
+                document.cookie = color;
+            })
+        })
+    </script>
+</head>
+<body>
+<div>
+    hello
+    <select id="select" required="required">
+        <option>red</option>
+        <option>green</option>
+        <option>blue</option>
+    </select>
+    <input type="number" id="textSize" min="10" max="20" required="required">
+    <input type="submit" id="save" value="Сохранить">
+</div>
+</body>
+</html>
