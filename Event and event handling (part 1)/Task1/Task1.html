@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+
+    <script>
+        window.addEventListener("load", function () {
+            let pattern = /\d/;
+            let guard = document.getElementById("onlyIntegerNumbers");
+            guard.addEventListener("keypress", function (e) {
+                let userInput = String.fromCharCode(e.charCode);
+                if (!pattern.test(userInput)) {
+                    e.preventDefault();
+                }
+            }, true);
+            let entryField1 = document.getElementById("entryField1");
+            let entryField2 = document.getElementById("entryField2");
+            let plusButton = document.getElementById("plus");
+            let minusButton = document.getElementById("minus");
+            let multiplyButton = document.getElementById("multiply");
+            let divideButton = document.getElementById("divide");
+            let result = document.getElementById("result");
+
+            plusButton.addEventListener("click", function () {
+                result.innerHTML = parseFloat(entryField1.value) + parseFloat(entryField2.value);
+            }, false);
+
+            minusButton.addEventListener("click", function () {
+                result.innerHTML = parseFloat(entryField1.value) - parseFloat(entryField2.value);
+            }, false);
+
+            multiplyButton.addEventListener("click", function () {
+                result.innerHTML = parseFloat(entryField1.value) * parseFloat(entryField2.value);
+            }, false);
+
+            divideButton.addEventListener("click", function () {
+                result.innerHTML = parseFloat(entryField1.value) / parseFloat(entryField2.value);
+            }, false);
+        }, true);
+    </script>
+
+</head>
+<body>
+<div id="onlyIntegerNumbers">
+<input type="text" id="entryField1" placeholder="Введите значение">
+<input type="text" id="entryField2" placeholder="Введите значение">
+</div>
+    <input type="button" id="plus" value="+">
+    <input type="button" id="minus" value="-">
+    <input type="button" id="multiply" value="*">
+    <input type="button" id="divide" value="/">
+<p id="result">dsd</p>
+</body>
+</html>
