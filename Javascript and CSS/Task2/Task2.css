@@ -1,0 +1,141 @@
+body {
+    background-color: #ECECE9;
+    position: absolute;
+}
+
+.mainText {
+    font-family: Corben, Impact;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+
+.standartColor {
+    font-family: Corben, Impact;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    background: #ECECE9;
+}
+
+.warningColor {
+    font-family: Corben, Impact;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 30px;
+    color: #ECECE9;
+    display: flex;
+    align-items: center;
+    background: #F05A64;
+}
+
+.successColor {
+    font-family: Corben, Impact;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 30px;
+    color: #ECECE9;
+    display: flex;
+    align-items: center;
+    background: #37B34A;
+}
+
+#signIn {
+    background-color: #FFFFFF;
+    position: absolute;
+    width: 330px;
+    height: 220px;
+    left: 787px;
+    top: 430px;
+}
+
+#userName {
+    position: absolute;
+    left: 7.67%;
+    right: 48.39%;
+    top: 2.05%;
+    bottom: 84.32%;
+}
+
+#userPassword {
+    position: absolute;
+    left: 8.33%;
+    right: 73.79%;
+    top: 37.05%;
+    bottom: 49.32%;
+}
+
+#login {
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    position: absolute;
+    left: 8.33%;
+    right: 8.33%;
+    top: 20%;
+    bottom: 65%;
+    width: 275px;
+    height: 33px;
+}
+
+#password {
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    position: absolute;
+    left: 8.33%;
+    right: 8.33%;
+    top: 55.5%;
+    bottom: 29.5%;
+    width: 275px;
+    height: 33px;
+}
+
+#enter {
+    position: absolute;
+    left: 8.33%;
+    right: 8.33%;
+    top: 78%;
+    bottom: 7%;
+    background: #00B49B;
+    width: 275px;
+    height: 33px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#rememberAccountParagraph {
+    position: absolute;
+    width: 111px;
+    height: 26px;
+    right: 44px;
+    top: 72px;
+    display: flex;
+    font-size: 14px;
+    line-height: 26px;
+    align-items: center;
+    text-decoration-line: underline;
+    color: #009ADE;
+}
+
+#rememberAccount {
+    position: absolute;
+    right: 24px;
+    top: 90px;
+}
+
+#warning {
+    position: absolute;
+    width: 312px;
+    height: 47px;
+    left: 820px;
+    top: 655px;
+}
