@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task2</title>
+</head>
+<body>
+<input type="text" name="paragraph" placeholder="Введите параграф"/>
+<input type="button" name="createParagraph" value="Создать параграф" onclick="CreateParagraph()"/>
+<script> let counter = 0</script>
+<script>
+    function CreateParagraph() {
+        let newParagraph = document.createElement("p");
+        newParagraph.innerHTML = document.getElementsByName("paragraph")[0].value;
+        document.body.appendChild(newParagraph);
+        let body = document.body.childNodes;
+        counter++;
+        if (counter == 10) {
+            for (let i = 0; i < body.length; i++) {
+                if (body[i].nodeName == "P") {
+                    document.body.removeChild(body[i]);
+                    i--;
+                }
+                counter = 0;
+            }
+        }
+    }
+</script>
+</body>
+</html>
