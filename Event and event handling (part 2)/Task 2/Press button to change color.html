@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Press button to change color</title>
+    <script>
+        window.onload = function () {
+            let main = document.getElementById("main");
+            let firstText = document.getElementById("text1");
+            let secondText = document.getElementById("text2");
+            let thirdText = document.getElementById("text3");
+
+            let changeColor = function (e) {
+                if (e.charCode === 114) {
+                    document.getElementById("output").innerHTML = e.charCode;
+                    firstText.style.backgroundColor = 'red';
+                    secondText.style.backgroundColor = 'red';
+                    thirdText.style.backgroundColor = 'red';
+                }
+                if (e.charCode === 103) {
+                    document.getElementById("output").innerHTML = e.charCode;
+                    firstText.style.backgroundColor = 'green';
+                    secondText.style.backgroundColor = 'green';
+                    thirdText.style.backgroundColor = 'green';
+                }
+                if (e.charCode === 98) {
+                    document.getElementById("output").innerHTML = e.charCode;
+                    firstText.style.backgroundColor = 'blue';
+                    secondText.style.backgroundColor = 'blue';
+                    thirdText.style.backgroundColor = 'blue';
+                }
+            };
+
+            main.addEventListener("keypress", changeColor);
+        }
+    </script>
+</head>
+<body id="main">
+<input id="text1" type="text">
+<input id="text2" type="text">
+<input id="text3" type="text">
+<p id="output"></p>
+</body>
+</html>

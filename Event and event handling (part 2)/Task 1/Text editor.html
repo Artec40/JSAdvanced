@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>text editor</title>
+    <script>
+        let tick = false;
+        window.onload = function () {
+            let button = document.getElementById("save");
+            button.addEventListener("click", function () {
+                tick = true;
+            });
+        };
+        window.onbeforeunload = function () {
+            if (!tick) {
+                return "Вы уверены, что хотите выйти?"
+            }
+        }
+    </script>
+</head>
+<body>
+<input id="textInput" type="text">
+<input id="save" type="button" value="Сохранить">
+</body>
+</html>
